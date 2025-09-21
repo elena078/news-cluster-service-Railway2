@@ -18,10 +18,8 @@ import umap.umap_ as umap
 import hdbscan
 import openpyxl
 import asyncio
-import nest_asyncio
 import signal
 import sys
-import nest_asyncio
 
 
 # Настройка логирования
@@ -504,17 +502,12 @@ async def main():
     # Создаем и запускаем бота
     bot = TelegramBot(telegram_token)
     await bot.run()
+    
 if __name__ == "__main__":
-    # Правильный запуск асинхронного кода
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
         logger.info("Бот остановлен пользователем")
     except Exception as e:
-        logger.error(f"Неожиданная ошибка: {str(e)}", exc_info=True)
-
-nest_asyncio.apply()
-
-# Запускаем
-await main()
+        logger.error(f"Ошибка: {str(e)}", exc_info=True)
 
