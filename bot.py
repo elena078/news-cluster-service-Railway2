@@ -531,32 +531,38 @@ class TelegramBot:
         logger.info("Бот остановлен")
 
     async def run(self):
-        """Запуск бота"""
+        """Запуск бота с диагностикой"""
         try:
+            logger.info("🔄 Инициализация бота...")
+            
             if not await self.initialize():
-                logger.error("Не удалось инициализировать бота")
+                logger.error("❌ Не удалось инициализировать бота")
                 return
                 
-            logger.info("Запуск ML бота на Railway...")
+            logger.info("✅ Бот инициализирован")
+            logger.info("🔄 Запуск polling...")
             
             # Запускаем поллинг
             await self.application.initialize()
             await self.application.start()
             
-            # Для Railway важно сообщить, что приложение запущено
-            logger.info("✅ Бот успешно запущен и готов к работе!")
+            # Проверка, что бот доступен
+            me = await self.application.bot.get_me()
+            logger.info(f"🤖 Бот @{me.username} запущен и готов к работе!")
+            logger.info(f"🆔 ID бота: {me.id}")
+            logger.info("📞 Бот ожидает сообщения...")
             
-            # Бесконечный цикл для поддержания работы
-            await self._stop_event.wait()
-            
+            # Для Railway важно поддерживать процесс активным
+            while True:
+                await asyncio.sleep(3600)  sleep на 1 час
+                logger.info("💓 Бот still alive...")
+                
         except Exception as e:
-            logger.error(f"Ошибка при запуске бота: {str(e)}", exc_info=True)
+            logger.error(f"❌ Критическая ошибка: {str(e)}", exc_info=True)
         finally:
-            # Гарантируем cleanup
             if self.application:
                 await self.application.stop()
                 await self.application.shutdown()
-
 # Основная функция
 async def main():
     # Используем токен из конфигурации
@@ -580,3 +586,4 @@ if __name__ == "__main__":
     except Exception as e:
 
         logger.error(f"Неожиданная ошибка: {str(e)}", exc_info=True)
+
