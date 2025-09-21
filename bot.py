@@ -22,9 +22,8 @@ import nest_asyncio
 import signal
 import sys
 import nest_asyncio
-nest_asyncio.apply()
-# Затем запускайте
-await main()
+
+
 # Настройка логирования
 logging.basicConfig(
     level=logging.INFO,
@@ -518,3 +517,4 @@ nest_asyncio.apply()
 
 # Запускаем
 await main()
+
