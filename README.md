@@ -28,6 +28,7 @@ news-clustering-bot/
 ├── config.py           # Конфигурация приложения
 ├── requirements.txt    # Зависимости Python
 ├── Procfile           # Конфигурация для Railway
+└── README.md          # Этот файл
 
 ```
 
