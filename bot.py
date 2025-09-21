@@ -559,13 +559,15 @@ class TelegramBot:
 
 # Основная функция
 async def main():
-    # Получаем токен бота из конфигурации
-    if not config.TELEGRAM_TOKEN:
+    # Используем токен из конфигурации
+    telegram_token = config.TELEGRAM_TOKEN
+    
+    if not telegram_token:
         logger.error("Токен бота не найден! Установите переменную окружения TELEGRAM_TOKEN")
         return
     
     # Создаем и запускаем бота
-    bot = TelegramBot(config.TELEGRAM_TOKEN)
+    bot = TelegramBot(telegram_token)
     await bot.run()
 
 if __name__ == "__main__":
@@ -576,4 +578,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         logger.info("Бот остановлен пользователем")
     except Exception as e:
+
         logger.error(f"Неожиданная ошибка: {str(e)}", exc_info=True)
