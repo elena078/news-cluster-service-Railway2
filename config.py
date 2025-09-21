@@ -8,12 +8,13 @@ class Config:
     # Токен бота из переменных окружения
     TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
     
+    # Проверяем, что токен есть
+    if not TELEGRAM_TOKEN:
+        raise ValueError("TELEGRAM_TOKEN не найден в переменных окружения!")
+    
     # Настройки для Railway
     PORT = int(os.getenv('PORT', 8000))
     HOST = os.getenv('HOST', '0.0.0.0')
-    
-    # Другие настройки
-    DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
     LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
 
 # Создаем экземпляр конфигурации
