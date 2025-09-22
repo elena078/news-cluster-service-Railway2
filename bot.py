@@ -160,7 +160,7 @@ class NewsClusterer:
             raise ValueError("Получен пустой DataFrame")
         # Подготовка данных
         df = df.copy()
-        df['published'] = pd.to_datetime(df['published'], errors='coerce')
+        # df['published'] = pd.to_datetime(df['published'], errors='coerce')
         # Удаляем строки с NaN в критичных полях
         df = df.dropna(subset=['title', 'lead'])
         # Заполняем пропущенные значения
@@ -311,7 +311,7 @@ class TelegramBot:
             "🎥 Видео принято!\n"
             "Однако мой функционал - анализ текстовых данных новостей. "
             "Пожалуйста, отправьте файл с расширением .csv или .xlsx "
-            "с колонками: published, title, lead"
+            "с колонками: title, lead"
         )
     async def handle_audio(self, update: Update, context: CallbackContext):
         """Обработчик аудио"""
@@ -326,7 +326,7 @@ class TelegramBot:
             "🎤 Голосовое сообщение!\n"
             "Для работы мне нужны текстовые данные. "
             "Пожалуйста, отправьте файл с новостями (.csv или .xlsx) "
-            "с обязательными полями: published, title, lead"
+            "с обязательными полями: title, lead"
         )
     async def handle_sticker(self, update: Update, context: CallbackContext):
         """Обработчик стикеров"""
@@ -510,4 +510,5 @@ if __name__ == "__main__":
         logger.info("Бот остановлен пользователем")
     except Exception as e:
         logger.error(f"Ошибка: {str(e)}", exc_info=True)
+
 
